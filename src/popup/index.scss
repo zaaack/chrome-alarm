@@ -1,0 +1,24 @@
+.root {
+}
+
+:global {
+  .form {
+    padding: 15px;
+  }
+    a.panel-block:hover, label.panel-block:hover {
+        background: unset;
+    }
+
+    a.panel-block, label.panel-block {
+        cursor: default;
+    }
+    .fade-enter {
+        transform:  translateX(100%);
+      }
+
+      .fade-enter.fade-enter-active {
+        transform:  translateX(0);
+        transition: transform 300ms ease-in;
+      }
+
+}

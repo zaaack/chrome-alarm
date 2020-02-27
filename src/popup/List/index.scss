@@ -1,0 +1,35 @@
+@import 'bulma/sass/utilities/initial-variables.sass';
+
+:global {
+  .panel {
+    min-height: 300px;
+    max-height: 500px;
+    overflow: auto;
+  }
+  .panel-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .panel-block {
+    align-items: baseline;
+    .ca-title {
+      flex: 1;
+      .ca-subtitle {
+        font-size: 13px;
+        color: #aaa;
+      }
+    }
+    .remove-btn {
+      display: none;
+    }
+    &:hover {
+      .remove-btn {
+        display: block;
+        cursor: pointer;
+        margin: 0 10px 0 5px;
+        color: $red;
+      }
+    }
+  }
+}
