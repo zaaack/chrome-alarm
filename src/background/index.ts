@@ -2,7 +2,7 @@ import { alarmKv, Alarm, AlarmType } from './kv'
 
 export class AlarmManager {
     alarms = alarmKv.alarms.get([])
-    timers: Map<string, number[]> = new Map()
+    timers: Map<string, any[]> = new Map()
     constructor() {
       this.updateTimers()
     }

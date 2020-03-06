@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "webpack --config webpack/webpack.dev.js --watch",
+    "start": "yarn watch",
     "build": "webpack --config webpack/webpack.prod.js",
     "clean": "rm -rf dist"
   },

@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+
+  "name": "Chrome Alarm",
+  "description": "Chrome Alarm",
+  "version": "1.0",
+
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+
+
+  "background": {
+    "scripts": ["js/vendor.js", "js/background.js"]
+  },
+
+  "permissions": [
+    "notifications",
+    "storage",
+    "<all_urls>",
+    "webRequest"
+  ]
+}
