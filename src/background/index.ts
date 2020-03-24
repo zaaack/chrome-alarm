@@ -1,4 +1,4 @@
-import { alarmKv, Alarm, AlarmType } from './kv'
+import { alarmKv, Alarm, AlarmType, Duration } from './kv'
 
 export class AlarmManager {
     alarms = alarmKv.alarms.get([])
@@ -6,8 +6,13 @@ export class AlarmManager {
     constructor() {
       this.updateTimers()
     }
-    add(alarm: Alarm) {
-      this.alarms.push(alarm)
+    save(alarm: Alarm) {
+      const idx = this.alarms.findIndex(a => a.id===alarm.id)
+      if (idx >= 0) {
+        this.alarms[idx] = alarm
+      } else {
+        this.alarms.push(alarm)
+      }
       alarmKv.alarms.set(this.alarms)
       this.updateTimers()
     }
@@ -55,20 +60,22 @@ export class AlarmManager {
                 ...alarm,
                 done: true
               })
-            }, alarm.timeout - now)
+            }, alarm.timeout - (now + alarm.ahead * Duration.M1))
             timer.push(t1)
           } else if (alarm.type === AlarmType.repeat) {
             const recTimeout = () => {
               let t1 = setTimeout(() => {
                 this.notify(alarm)
-                console.log(`repeat ${alarm.title}`, alarm, new Date().toLocaleString())
-                console.log(`next repeat ${alarm.title}`, alarm, new Date(Date.now() + alarm.duration - Date.now() % alarm.duration).toLocaleString())
                 recTimeout()
-              }, alarm.duration - Date.now() % alarm.duration)
+              }, alarm.duration - (Date.now() + alarm.ahead * Duration.M1) % alarm.duration)
               timer![0] = t1
+
+
+              console.log(`repeat ${alarm.title}`, alarm, new Date().toLocaleString())
+              console.log(`next repeat ${alarm.title}`, alarm, new Date(Date.now() + alarm.duration - (Date.now() + alarm.ahead * Duration.M1) % alarm.duration).toLocaleString())
             }
             recTimeout()
-            console.log('repeat', `timeout:${alarm.duration - now % alarm.duration}`, alarm.duration)
+            console.log('repeat', `timeout:${alarm.duration - (now + alarm.ahead * Duration.M1) % alarm.duration}`, alarm.duration)
           }
           this.timers.set(alarm.id, timer)
         }

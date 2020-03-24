@@ -53,6 +53,14 @@ export function List() {
                 }
               }}
             ></i>
+            <i
+              className={`fas fa-cog config-btn`}
+              aria-hidden="true"
+              onClick={e => {
+            history.push(`/form?id=${a.id}`)
+
+              }}
+            ></i>
             <div className="field">
               <input
                 id={a.id}

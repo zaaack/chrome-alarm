@@ -6,9 +6,14 @@ import dayjs from 'dayjs'
 import Calendar from './Calendar'
 
 export function Form() {
-  let [alarm, setAlarm] = useState<Alarm>(Alarm.empty())
-  let { alarms: _, fetchAlarms } = useAlarmContext()
-  let history = useHistory()
+  const history = useHistory<{id?: string}>()
+  const { alarms, fetchAlarms } = useAlarmContext()
+  const locSearch = new URLSearchParams(history.location.search.slice(1))
+  const locId = locSearch.get('id')
+  console.log('locId', locId, history.location.search)
+  const [alarm, setAlarm] = useState<Alarm>(
+    locId && alarms.find(a => a.id === locId) || Alarm.empty()
+  )
   function setField(key: keyof Alarm, value: Alarm[keyof Alarm]) {
     setAlarm({
       ...alarm,
@@ -78,14 +83,22 @@ export function Form() {
           />
         </div>
       </div>
+      <div className="field">
+        <label className="label">提前:</label>
+        <div className="control">
+          <input type="number" min={0} max={60 * 24} defaultValue={alarm.ahead} onChange={e => {
+            setField('ahead', Number(e.target.value) || 0)
+          }} />
+        </div>
+      </div>
 
       <div className="field is-grouped">
         <div className="control">
           <button
             onClick={e => {
-              getAlarmManager().add(alarm)
+              getAlarmManager().save(alarm)
               fetchAlarms()
-              history.push('/')
+              history.goBack()
             }}
             className="button is-primary is-link"
           >

@@ -44,6 +44,7 @@ export enum AlarmType {
 }
 export interface Alarm {
   type: AlarmType
+  ahead: number
   duration: number
   timeout: number
   title: string
@@ -52,11 +53,13 @@ export interface Alarm {
   disabled?: boolean
 }
 export const Duration = {
+  M1: 60 * 1000,
   H1: 60 * 60 * 1000,
 }
 export namespace Alarm {
   export function empty(): Alarm {
     return {
+      ahead: 0,
       type: AlarmType.repeat,
       duration: Duration.H1,
       timeout: Date.now() + Duration.H1,

@@ -20,14 +20,17 @@
         color: #aaa;
       }
     }
-    .remove-btn {
+    .remove-btn, .config-btn {
       display: none;
+      cursor: pointer;
+      margin: 0 5px;
     }
     &:hover {
+      .config-btn,
       .remove-btn {
         display: block;
-        cursor: pointer;
-        margin: 0 10px 0 5px;
+      }
+      .remove-btn {
         color: $red;
       }
     }
