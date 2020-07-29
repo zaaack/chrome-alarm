@@ -34,6 +34,10 @@ export class AlarmManager {
         requireInteraction: true,
       })
       console.log('notify', alarm)
+      // var audio = new Audio();
+      // audio.src= "../sound/WindowsNotifyMessaging.wav"
+      // audio.load()
+      // audio.play()
     }
     clearTimers(alarm: Alarm) {
       let timer = this.timers.get(alarm.id) || []
@@ -84,3 +88,14 @@ export class AlarmManager {
 }
 
 window['alarmManager'] = new AlarmManager()
+
+
+// chrome.alarms.getAll(alarms => {
+//   if (alarms.find(a => a.name === 'test')) {
+//     //
+//   } else {
+//     chrome.alarms.create('test', {
+//       when: Date.now() + 1000 * 5,
+//     })
+//   }
+// })

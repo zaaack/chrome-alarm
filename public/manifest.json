@@ -24,6 +24,7 @@
     "notifications",
     "storage",
     "<all_urls>",
-    "webRequest"
+    "webRequest",
+    "alarms"
   ]
 }
