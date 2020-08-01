@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react'
-import { useAlarmContext, getAlarmManager } from 'popup/utils'
+import { useAlarmContext } from 'popup/utils'
 import { useLocation, useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
 import './index.scss'
 
 export function List() {
-  let { alarms, fetchAlarms } = useAlarmContext()
+  let { alarms,fetch, remove, save } = useAlarmContext()
   let location = useLocation()
   let history = useHistory()
 
   useEffect(() => {
-    fetchAlarms()
+    fetch()
   }, [])
   return (
     <nav className="panel">
@@ -48,8 +48,7 @@ export function List() {
               onClick={e => {
                 let b = confirm(`确定要删除「${a.title}」吗?`)
                 if (b) {
-                  getAlarmManager().remove(a)
-                  fetchAlarms()
+                  remove(a)
                 }
               }}
             ></i>
@@ -68,8 +67,7 @@ export function List() {
                 className="switch"
                 defaultChecked={!a.disabled}
                 onChange={e => {
-                  getAlarmManager().update({ ...a, disabled: !e.target.checked })
-                  fetchAlarms()
+                  save({ ...a, disabled: !e.target.checked })
                 }}
               />
               <label htmlFor={a.id}></label>

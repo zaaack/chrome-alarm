@@ -17,7 +17,8 @@
 
 
   "background": {
-    "scripts": ["js/vendor.js", "js/background.js"]
+    // "scripts": ["js/vendor.js", "js/background.js"]
+    "scripts": ["js/background.js"]
   },
 
   "permissions": [

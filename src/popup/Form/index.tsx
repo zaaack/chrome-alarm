@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { Alarm, AlarmType, Duration } from 'background/kv'
-import { getAlarmManager, useAlarmContext } from 'popup/utils'
+import { useAlarmContext } from 'popup/utils'
 import { useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
 import Calendar from './Calendar'
 
 export function Form() {
   const history = useHistory<{id?: string}>()
-  const { alarms, fetchAlarms } = useAlarmContext()
+  const { alarms, fetch: fetchAlarms, save, remove } = useAlarmContext()
   const locSearch = new URLSearchParams(history.location.search.slice(1))
   const locId = locSearch.get('id')
   console.log('locId', locId, history.location.search)
@@ -44,7 +44,7 @@ export function Form() {
               }}
             >
               <option value={AlarmType.repeat}>循环</option>
-              <option value={AlarmType.once}>仅一次</option>
+              {/* <option value={AlarmType.once}>仅一次</option> */}
             </select>
           </div>
         </div>
@@ -96,7 +96,7 @@ export function Form() {
         <div className="control">
           <button
             onClick={e => {
-              getAlarmManager().save(alarm)
+              save(alarm)
               fetchAlarms()
               history.goBack()
             }}

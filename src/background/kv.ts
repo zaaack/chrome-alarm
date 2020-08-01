@@ -69,8 +69,32 @@ export namespace Alarm {
   }
 }
 
-class AlarmKv extends Kv {
-  alarms = new Field<Alarm[]>(this, 'alarms')
+class AlarmKv {
+  private _kv = new Kv()
+  private alarms = new Field<Alarm[]>(this._kv, 'alarms')
+  getAll() {
+    return this.alarms.get([])
+  }
+  get(id: string) {
+    console.log('id', id, this.getAll())
+    return this.getAll().find(_=>_.id===id)
+  }
+  setAll(as: Alarm[]) {
+    this.alarms.set(as)
+  }
+  remove(a: Alarm) {
+    let alarms = this.getAll().filter(_ => _.id !== a.id)
+    this.setAll(alarms)
+  }
+  save(a: Alarm) {
+    let alarms = this.getAll()
+    let idx= alarms.findIndex(_ => _.id === a.id)
+    if (idx<0) {
+      idx=alarms.length
+    }
+    alarms[idx] == a
+    this.setAll(alarms)
+  }
 }
 
 export const alarmKv = new AlarmKv()
