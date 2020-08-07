@@ -9,7 +9,7 @@ const IsDev = process.env.NODE_ENV==='development'
 module.exports = {
     entry: {
         popup: path.join(__dirname, srcDir + 'popup/index.tsx'),
-        options: path.join(__dirname, srcDir + 'options/index.tsx'),
+        // options: path.join(__dirname, srcDir + 'options/index.tsx'),
         background: path.join(__dirname, srcDir + 'background/index.ts'),
         // content_script: path.join(__dirname, srcDir + 'content_script.ts')
     },
@@ -17,12 +17,13 @@ module.exports = {
         path: path.join(__dirname, '../dist/js'),
         filename: '[name].js'
     },
-    optimization: {
-        splitChunks: {
-            name: 'vendor',
-            chunks: "initial"
-        }
-    },
+    // optimization: {
+    //     splitChunks: {
+    //         name: 'vendor',
+    //         chunks: "initial",
+    //         minChunks: 2
+    //     }
+    // },
     module: {
         rules: [
             {

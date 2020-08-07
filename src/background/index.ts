@@ -3,13 +3,19 @@
 import { Alarm, Duration, alarmKv, AlarmType } from "./kv"
 
 export class AlarmManager {
-    alarms = alarmKv.getAll()
+    get alarms() {
+      return alarmKv.getAll()
+    }
     timers: Map<string, any[]> = new Map()
     constructor() {
       this.updateTimers()
     }
     save(alarm: Alarm) {
       alarmKv.save(alarm)
+      this.updateTimers()
+    }
+    saveAll(alarms: Alarm[]) {
+      alarmKv.saveAll(alarms)
       this.updateTimers()
     }
     remove(alarm: Alarm) {
@@ -22,7 +28,7 @@ export class AlarmManager {
         vibrate: 1,
         requireInteraction: true,
       })
-      console.log('notify', alarm, new Date().toLocaleString())
+      console.log('notify', new Date().toLocaleString(), alarm)
       // var audio = new Audio();
       // audio.src= "../sound/WindowsNotifyMessaging.wav"
       // audio.load()
@@ -58,18 +64,16 @@ export class AlarmManager {
             timer.push(t1)
           } else if (alarm.type === AlarmType.repeat) {
             const recTimeout = () => {
+              const timeout = alarm.duration - (Date.now() + alarm.ahead * Duration.M1) % alarm.duration
               let t1 = setTimeout(() => {
                 this.notify(alarm)
                 recTimeout()
-              }, alarm.duration - (Date.now() + alarm.ahead * Duration.M1) % alarm.duration)
+              }, timeout)
               timer![0] = t1 // 用数组作为引用
 
-
-              console.log(`repeat ${alarm.title}`, alarm, new Date().toLocaleString())
-              console.log(`next repeat ${alarm.title}`, alarm, new Date(Date.now() + alarm.duration - (Date.now() + alarm.ahead * Duration.M1) % alarm.duration).toLocaleString())
+              console.log(`next repeat ${alarm.title}`, new Date(Date.now() + timeout).toLocaleString(), alarm)
             }
             recTimeout()
-            console.log('repeat', `timeout:${alarm.duration - (now + alarm.ahead * Duration.M1) % alarm.duration}`, alarm.duration)
           }
           this.timers.set(alarm.id, timer)
         }

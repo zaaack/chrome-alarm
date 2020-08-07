@@ -2,10 +2,11 @@ import React, { useEffect } from 'react'
 import { useAlarmContext } from 'popup/utils'
 import { useLocation, useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
+import { ReactSortable, Sortable, MultiDrag, Swap } from "react-sortablejs";
 import './index.scss'
 
 export function List() {
-  let { alarms,fetch, remove, save } = useAlarmContext()
+  let { alarms,fetch, remove, save, saveAll: saveList } = useAlarmContext()
   let location = useLocation()
   let history = useHistory()
 
@@ -25,6 +26,7 @@ export function List() {
           <i className="fas fa-plus" aria-hidden="true"></i>
         </button>
       </p>
+      <ReactSortable list={alarms} setList={saveList}>
       {alarms.map(a => {
         return (
           <a key={a.id} className="panel-block">
@@ -75,6 +77,7 @@ export function List() {
           </a>
         )
       })}
+      </ReactSortable>
     </nav>
   )
 }

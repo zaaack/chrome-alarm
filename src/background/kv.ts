@@ -79,12 +79,12 @@ class AlarmKv {
     console.log('id', id, this.getAll())
     return this.getAll().find(_=>_.id===id)
   }
-  setAll(as: Alarm[]) {
+  saveAll(as: Alarm[]) {
     this.alarms.set(as)
   }
   remove(a: Alarm) {
     let alarms = this.getAll().filter(_ => _.id !== a.id)
-    this.setAll(alarms)
+    this.saveAll(alarms)
   }
   save(a: Alarm) {
     let alarms = this.getAll()
@@ -92,8 +92,8 @@ class AlarmKv {
     if (idx<0) {
       idx=alarms.length
     }
-    alarms[idx] == a
-    this.setAll(alarms)
+    alarms[idx] = a
+    this.saveAll(alarms)
   }
 }
 
