@@ -92,7 +92,7 @@ class AlarmKv {
     if (idx<0) {
       idx=alarms.length
     }
-    alarms[idx] == a
+    alarms[idx] = a
     this.setAll(alarms)
   }
 }

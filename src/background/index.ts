@@ -3,13 +3,19 @@
 import { Alarm, Duration, alarmKv, AlarmType } from "./kv"
 
 export class AlarmManager {
-    alarms = alarmKv.getAll()
+    get alarms() {
+      return alarmKv.getAll()
+    }
     timers: Map<string, any[]> = new Map()
     constructor() {
       this.updateTimers()
     }
     save(alarm: Alarm) {
       alarmKv.save(alarm)
+      this.updateTimers()
+    }
+    saveAll(alarms: Alarm[]) {
+      alarmKv.setAll(alarms)
       this.updateTimers()
     }
     remove(alarm: Alarm) {

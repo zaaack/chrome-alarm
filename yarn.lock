@@ -63,6 +63,11 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/sortablejs@^1.10.0":
+  version "1.10.5"
+  resolved "https://registry.npm.taobao.org/@types/sortablejs/download/@types/sortablejs-1.10.5.tgz#341f5af3372180ce3cbfbd2b34a6fdefaca8d227"
+  integrity sha1-NB9a8zchgM48v70rNKb976yo0ic=
+
 "@webassemblyjs/ast@1.8.5":
   version "1.8.5"
   resolved "https://registry.npm.taobao.org/@webassemblyjs/ast/download/@webassemblyjs/ast-1.8.5.tgz#51b1c5fe6576a34953bf4b253df9f0d490d9e359"
@@ -3219,6 +3224,16 @@ react-router@5.1.2, react-router@^5.1.2:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
+react-sortablejs@^2.0.11:
+  version "2.0.11"
+  resolved "https://registry.npm.taobao.org/react-sortablejs/download/react-sortablejs-2.0.11.tgz#eecf621f801ab8c16a8a5c3c856005f0795ccbcf"
+  integrity sha1-7s9iH4AauMFqilw8hWAF8Hlcy88=
+  dependencies:
+    "@types/sortablejs" "^1.10.0"
+    classnames "^2.2.6"
+    sortablejs "1.10.1"
+    tiny-invariant "^1.0.6"
+
 react-transition-group@^4.3.0:
   version "4.3.0"
   resolved "https://registry.npm.taobao.org/react-transition-group/download/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"
@@ -3608,6 +3623,11 @@ snapdragon@^0.8.1:
     source-map-resolve "^0.5.0"
     use "^3.1.0"
 
+sortablejs@1.10.1:
+  version "1.10.1"
+  resolved "https://registry.npm.taobao.org/sortablejs/download/sortablejs-1.10.1.tgz#3d52b00f871be00f00f84d99a60d120bf3dfe52c"
+  integrity sha1-PVKwD4cb4A8A+E2Zpg0SC/Pf5Sw=
+
 source-list-map@^2.0.0:
   version "2.0.1"
   resolved "https://registry.npm.taobao.org/source-list-map/download/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
@@ -3921,7 +3941,7 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-tiny-invariant@^1.0.2:
+tiny-invariant@^1.0.2, tiny-invariant@^1.0.6:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/tiny-invariant/download/tiny-invariant-1.1.0.tgz#634c5f8efdc27714b7f386c35e6760991d230875"
   integrity sha1-Y0xfjv3CdxS384bDXmdgmR0jCHU=

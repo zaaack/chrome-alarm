@@ -25,6 +25,10 @@ function useAlarm() {
   return {
     alarms,
     fetch,
+    saveAll(alarms: Alarm[]) {
+      getAlarmManager().saveAll(alarms)
+      fetch()
+    },
     remove(a: Alarm) {
       getAlarmManager().remove(a)
       fetch()
