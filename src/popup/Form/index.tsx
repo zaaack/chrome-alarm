@@ -22,7 +22,7 @@ export function Form() {
   }
   return (
     <div className="form">
-      <div className="field">
+      <div className="field is-grouped">
         <label className="label">标题:</label>
         <div className="control">
           <input
@@ -33,7 +33,7 @@ export function Form() {
           />
         </div>
       </div>
-      <div className="field">
+      <div className="field is-grouped">
         <label className="label">类型:</label>
         <div className="control">
           <div className="select">
@@ -49,7 +49,7 @@ export function Form() {
           </div>
         </div>
       </div>
-      <div className="field" hidden={alarm.type !== AlarmType.once}>
+      <div className="field is-grouped" hidden={alarm.type !== AlarmType.once}>
         <label className="label">到期:</label>
         <div className="control">
           <Calendar
@@ -67,7 +67,7 @@ export function Form() {
         </div>
       </div>
 
-      <div className="field" hidden={alarm.type !== AlarmType.repeat}>
+      <div className="field is-grouped" hidden={alarm.type !== AlarmType.repeat}>
         <label className="label">循环:</label>
         <div className="control">
           <Calendar
@@ -83,7 +83,7 @@ export function Form() {
           />
         </div>
       </div>
-      <div className="field">
+      <div className="field is-grouped">
         <label className="label">提前:</label>
         <div className="control">
           <input type="number" min={0} max={60 * 24} defaultValue={alarm.ahead} onChange={e => {
@@ -91,7 +91,14 @@ export function Form() {
           }} />
         </div>
       </div>
-
+      <div className="field is-grouped">
+        <label className="label">弹窗:</label>
+        <div className="control">
+          <input type="checkbox" defaultChecked={alarm.alert} onChange={e => {
+            setField('alert', e.target.checked)
+          }} />
+        </div>
+      </div>
       <div className="field is-grouped">
         <div className="control">
           <button

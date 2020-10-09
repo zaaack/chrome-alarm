@@ -23,11 +23,15 @@ export class AlarmManager {
       this.clearTimers(alarm)
     }
     notify(alarm: Alarm) {
-      new Notification(`${alarm.title} | 整点报时`, {
+      const title = `${alarm.title} | 整点报时`
+      new Notification(title, {
         body: new Date().toLocaleString(),
         vibrate: 1,
         requireInteraction: true,
       })
+      if (alarm.alert) {
+        alert(title)
+      }
       console.log('notify', new Date().toLocaleString(), alarm)
       // var audio = new Audio();
       // audio.src= "../sound/WindowsNotifyMessaging.wav"

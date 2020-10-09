@@ -1,4 +1,11 @@
 export class Kv {
+  constructor() {
+    chrome.storage.sync.get((items) => {
+      for (const key in items) {
+        localStorage.setItem(key, JSON.stringify(items[key]))
+      }
+    })
+  }
   get<T>(k: string, defaults: T): T
   get<T>(k: string): T | null
   get<T>(k: string, defaults?: T): T | null {
@@ -13,9 +20,11 @@ export class Kv {
   }
   set<T>(k: string, v: T) {
     localStorage.setItem(k, JSON.stringify(v))
+    chrome.storage.sync.set({[k]: v})
   }
   delete(k: string) {
     localStorage.removeItem(k)
+    chrome.storage.sync.remove(k)
   }
 }
 
@@ -45,6 +54,7 @@ export enum AlarmType {
 export interface Alarm {
   type: AlarmType
   ahead: number
+  alert?: boolean
   duration: number
   timeout: number
   title: string

@@ -20,5 +20,13 @@
         transform:  translateX(0);
         transition: transform 300ms ease-in;
       }
-
+    .field.is-grouped {
+      align-items: center;
+      .label:not(:last-child) {
+        margin: 0;
+      }
+      .control {
+        margin-left: 10px;
+      }
+    }
 }
