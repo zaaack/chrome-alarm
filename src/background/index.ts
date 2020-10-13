@@ -24,11 +24,13 @@ export class AlarmManager {
     }
     notify(alarm: Alarm) {
       const title = `${alarm.title} | 整点报时`
-      new Notification(title, {
-        body: new Date().toLocaleString(),
-        vibrate: 1,
-        requireInteraction: true,
-      })
+      if (alarm.notify) {
+        new Notification(title, {
+          body: new Date().toLocaleString(),
+          vibrate: 1,
+          requireInteraction: true,
+        })
+      }
       if (alarm.alert) {
         alert(title)
       }

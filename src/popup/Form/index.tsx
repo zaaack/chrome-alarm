@@ -44,30 +44,31 @@ export function Form() {
               }}
             >
               <option value={AlarmType.repeat}>循环</option>
-              {/* <option value={AlarmType.once}>仅一次</option> */}
+              <option value={AlarmType.once}>定时</option>
             </select>
           </div>
         </div>
       </div>
-      <div className="field is-grouped" hidden={alarm.type !== AlarmType.once}>
-        <label className="label">到期:</label>
-        <div className="control">
-          <Calendar
-            className="input"
-            type="datetime"
-            value={new Date(alarm.timeout) as any}
-            bulmaCalendarOptions={{
-              minDate: new Date(),
-              closeOnOverlayClick: true,
-            }}
-            onChange={(e, d) => {
-              setField('timeout', d.getTime())
-            }}
-          />
+      {alarm.type === AlarmType.once && (
+        <div className="field is-grouped">
+          <label className="label">定时:</label>
+          <div className="control">
+            <Calendar
+              className="input"
+              type="time"
+              value={new Date(alarm.duration + 16 * Duration.H1) as any}
+              onChange={(e, d) => {
+                let duration = new Date(0)
+                duration.setHours(d.getHours() + duration.getHours())
+                duration.setMinutes(d.getMinutes() + duration.getMinutes())
+                setField('timeout', Date.now() + duration.getTime())
+              }}
+            />
+          </div>
         </div>
-      </div>
-
-      <div className="field is-grouped" hidden={alarm.type !== AlarmType.repeat}>
+      )}
+      {alarm.type === AlarmType.repeat && (
+      <div className="field is-grouped" >
         <label className="label">循环:</label>
         <div className="control">
           <Calendar
@@ -83,11 +84,20 @@ export function Form() {
           />
         </div>
       </div>
+      )}
       <div className="field is-grouped">
         <label className="label">提前:</label>
         <div className="control">
           <input type="number" min={0} max={60 * 24} defaultValue={alarm.ahead} onChange={e => {
             setField('ahead', Number(e.target.value) || 0)
+          }} />
+        </div>
+      </div>
+      <div className="field is-grouped">
+        <label className="label">通知:</label>
+        <div className="control">
+          <input type="checkbox" defaultChecked={alarm.notify} onChange={e => {
+            setField('notify', e.target.checked)
           }} />
         </div>
       </div>
