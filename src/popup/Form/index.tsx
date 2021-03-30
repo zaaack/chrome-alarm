@@ -4,6 +4,9 @@ import { useAlarmContext } from 'popup/utils'
 import { useHistory } from 'react-router-dom'
 import dayjs from 'dayjs'
 import Calendar from './Calendar'
+import TimePicker from 'rc-time-picker'
+import 'rc-time-picker/assets/index.css';
+import moment from 'moment'
 
 export function Form() {
   const history = useHistory<{id?: string}>()
@@ -71,15 +74,15 @@ export function Form() {
       <div className="field is-grouped" >
         <label className="label">循环:</label>
         <div className="control">
-          <Calendar
-            className="input"
-            type="time"
-            value={new Date(alarm.duration + 16 * Duration.H1) as any}
-            onChange={(e, d) => {
-              let duration = new Date(0)
-              duration.setHours(d.getHours() + duration.getHours())
-              duration.setMinutes(d.getMinutes() + duration.getMinutes())
-              setField('duration', duration.getTime())
+          <TimePicker
+            showSecond={false}
+            defaultValue={moment(alarm.duration + 16 * Duration.H1)}
+            className="xxx"
+            onChange={(d) => {
+              // let duration = new Date(0)
+              // duration.setHours(d.hours() + duration.getHours())
+              // duration.setMinutes(d.minutes() + duration.getMinutes())
+              setField('duration', d.hours() * Duration.H1 + d.minutes() * Duration.M1)
             }}
           />
         </div>
